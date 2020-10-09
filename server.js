@@ -45,6 +45,7 @@ app.post("/api/workouts", (req, res) => {
 });
 
 app.put("/api/workouts/:id", (req, res) => {
+    console.log(req.body);
     db.Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body }}, { new: true })
     .then(data => {
         res.json(data);
