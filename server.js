@@ -27,18 +27,23 @@ app.get("/exercise", (req, res) =>{
 });
 
 app.post("/api/workouts", (req, res) => {
-    db.Workout.insertMany({}, function(err, data) {
-        if (err) throw err;
-        return res.json("success");
+    db.Workout.create(req.body)
+    .then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json(err);
     });
 });
 
 app.get("/api/workouts", (req, res) => {
-    db.Workout.find({}, function(err, data) {
-        if (err) throw err;
-        return res.json(data);
-    });
+    db.Workout.find()
+    .then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json(err);
+    })
 });
+
 
 app.listen(PORT, () => {
     console.log("listening at http://localhost:" + PORT);
